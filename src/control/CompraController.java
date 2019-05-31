@@ -8,6 +8,8 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -226,7 +228,14 @@ public class CompraController implements Initializable, Controller, Itens {
             if(comboFornecedor.getSelectionModel().isEmpty()){
                 throw new Exception("Fornecedor inválido!");
             }
-            compra.setFornecedor((Fornecedor) comboFornecedor.getSelectionModel().getSelectedItem());
+            
+            ObservableList<Fornecedor> fs = null;
+            Fornecedor f = null;
+            fs = FornecedorDAO.listar((String)comboFornecedor.getSelectionModel().getSelectedItem(), 10, 0);
+			f = fs.get(0);
+            
+            compra.setFornecedor(f);
+            
         } catch (Exception e) {
             rotuloFornecedor.setTextFill(Paint.valueOf("red"));
             erro = true;
@@ -307,8 +316,18 @@ public class CompraController implements Initializable, Controller, Itens {
 
     @FXML
     private void atualizaValor() {
-        Produto produto = (Produto) comboProduto.getSelectionModel().getSelectedItem();
-        campoValor.setText(produto.getPrecoCompraFormatado());
+    	ObservableList<Produto> ps = null;
+        Produto p = null;
+        
+        
+        try {
+			ps = ProdutoDAO.listar((String)comboProduto.getSelectionModel().getSelectedItem(), 10, 0);
+			p = ps.get(0);
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        campoValor.setText(p.getPrecoCompraFormatado());
     }
 
     @Override
@@ -316,7 +335,20 @@ public class CompraController implements Initializable, Controller, Itens {
     public void adicionarItem() throws ParseException {
         NumberFormat nf = NumberFormat.getNumberInstance();
         Compra.ItemCompra item = compra.new ItemCompra();
-        item.setProduto((Produto) comboProduto.getSelectionModel().getSelectedItem());
+        
+        ObservableList<Produto> ps = null;
+        Produto p = null;
+        
+        
+        try {
+			ps = ProdutoDAO.listar((String)comboProduto.getSelectionModel().getSelectedItem(), 10, 0);
+			p = ps.get(0);
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        item.setProduto(p);
         item.setQuantidade(nf.parse(campoQuantidade.getText()).intValue());
         item.setValorUnitario(nf.parse(campoValor.getText()).floatValue());
         compra.addItem(item);

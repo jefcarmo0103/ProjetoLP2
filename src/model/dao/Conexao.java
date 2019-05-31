@@ -5,7 +5,7 @@ import java.sql.*;
 public class Conexao {
 
     private final String SERVIDOR = "localhost";
-    private final String PORTA = "8080";
+    private final String PORTA = "3306";
     private final String BANCO_DE_DADOS = "dbsistemavenda";
     private final String USUARIO = "root";
     private final String SENHA = "123456";

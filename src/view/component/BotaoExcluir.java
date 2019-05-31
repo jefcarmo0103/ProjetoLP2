@@ -35,7 +35,7 @@ public class BotaoExcluir implements Callback<TableColumn<Object, Integer>, Tabl
                 }
 
                 Button btn = new Button();
-                Image img = new Image(getClass().getResourceAsStream("/com/jdenner/view/img/Excluir.png"));
+                Image img = new Image(getClass().getResourceAsStream("/view/img/Excluir.png"));
                 btn.setGraphic(new ImageView(img));
                 btn.setStyle("-fx-background-color: transparent;");
                 btn.setOnAction(new EventHandler<ActionEvent>() {

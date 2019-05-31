@@ -33,7 +33,7 @@ public class BotaoEditar implements Callback<TableColumn<Object, Integer>, Table
                 }
 
                 Button btn = new Button();
-                Image img = new Image(getClass().getResourceAsStream("/com/jdenner/view/img/Editar.png"));
+                Image img = new Image(getClass().getResourceAsStream("/view/img/Editar.png"));
                 btn.setGraphic(new ImageView(img));
                 btn.setStyle("-fx-background-color: transparent;");
                 btn.setOnAction(new EventHandler<ActionEvent>() {
